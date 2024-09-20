@@ -1,0 +1,98 @@
+
+.rbc-today {
+  background-color: #81d2e4;
+}
+
+.event-container {
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.event {
+  color: #fff;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  padding: 1px;
+  padding-left: 8px;
+  border-radius: 1px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  color: #3f3f3f;
+  font-weight: 650;
+}
+
+.note-event{
+  background-color: #f2fbfc;
+  border-left: 4px solid #619eab;
+}
+
+.camera-event{
+  background-color: #e6eeee;
+  border-left: 4px solid #054142;
+}
+
+.conference-event{
+  background-color:rgb(254, 242, 140);
+  border-left: 4px solid #dacd42;
+}
+.registration-event{
+  background-color: #E8F1F3;
+  border-left: 4px solid #1A7482;
+}
+.submission-event{
+  background-color: #f29b95;
+  border-left: 4px solid #E95D54;
+}
+.notification-event{
+  background-color: #b6dfe8;
+  border-left: 4px solid #79b0b9;
+}
+
+.rbc-day-bg {
+  height: 120px; /* Chiều cao của từng ô ngày */
+  cursor: pointer;
+  flex: 1 0 14.2857%; /* Chia đều cho 7 cột (100% / 7) */
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.rbc-day-bg:hover {
+ background-color:#74bdcd;
+}
+.rbc-month-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+/* Căn giữa trên dưới và căn trái */
+.event-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Căn giữa theo chiều dọc */
+  align-items: flex-start; /* Căn trái */
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+
+
+.rbc-event {
+  color: white;
+  padding: 2px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.rbc-date-cell {
+  text-align: right;
+  padding-right: 4px;
+}
+
+.rbc-event.rbc-selected{
+  background-color: #67a8b6;
+}

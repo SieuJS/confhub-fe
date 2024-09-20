@@ -1,0 +1,131 @@
+.header-conference-container{
+  font-weight: bold;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+
+.form-container{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* Media queries */
+@media screen and (max-width: 600px) {
+  .my-conf-card {
+    overflow: auto;
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 600px) {
+  .my-conf-card {
+   
+
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .conference-container{
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  .header-conference-container{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .priority-title{
+    justify-content: start !important;
+  }
+  .conf-name{
+    white-space: nowrap;
+  }
+  .acronym-container{
+    height: 30px;
+    border-radius: 8px !important;
+  }
+  .acronym-container > span {    
+    font-size: small !important;
+  }
+  .col-half-offset{
+    margin: 2px !important;
+  }
+  .navbar-nav {
+    align-items: start !important;
+    justify-content: start;
+  }
+  .icon-follow img {
+    width: 12px !important;
+  }
+  .btn-wave-wrap{
+    letter-spacing: 1px !important;
+  }
+  .my-sidebar-content{
+    overflow-y: auto !important;
+  }
+  .auth-container{
+    margin-top: 14%;
+    margin-left: 4%;
+  }
+  .form-container{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  .fixed-column{
+    width: 60px !important;
+  }
+  .custom-active-btn{
+    justify-content: center !important;
+    padding-left: 0 !important; 
+  }
+}
+
+@media screen and (min-width: 768px) {
+    .my-conf-card {
+      width: 768px !important;
+      max-width: 768px; /* For screens wider than 768px */  
+    }
+    .render-one-at-a-time {
+      /*slide top view*/
+      display: block; /* Hiển thị từng phần tử một lần */
+    }
+    .navbar-expand-md .navbar-nav .dropdown-menu {
+      position: absolute;
+    }
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .my-conf-card {
+      max-width: 1024px; /* For screens wider than 1024px */
+      width: 1024px !important;
+
+    }
+  }
+
+  /* Header.css */
+
+
+
+/* Center the menu items in the navbar */
+@media (max-width: 767.98px) {
+  #header .navbar-collapse {
+    text-align: center;
+  }
+
+  #header .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #header .popup {
+    top: calc(100% + 56px); /* Adjust this value if necessary to account for the expanded menu height */
+  }
+}
+
+.offcanvas-body-custom{
+  background-color: #054142;
+}

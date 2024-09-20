@@ -1,0 +1,225 @@
+/* ScrollToTop.css */
+.scroll-to-top {
+  position: fixed;
+  bottom: 15px;
+  right: 10px;
+  z-index: 1000;
+  background-color: #00999f;
+  color: #e6f5f5;
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: large;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s ease-out;
+}
+
+.scroll-to-top:hover {
+  background-color: #008a8f;
+}
+
+.zoom-in {
+  animation: zoomIn 0.8s ease-in-out forwards;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+.content {
+  transform: translateY(20px);
+  /* Di chuyển toàn bộ div xuống 20px từ phía dưới */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  /* Thêm thuộc tính transition cho hiệu ứng mượt mà */
+  opacity: 0;
+}
+
+.content.visible {
+  transform: translateY(0);
+  /* Chuyển toàn bộ div về vị trí ban đầu */
+  opacity: 1;
+}
+
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popup {
+  position: fixed;
+  top: 70px;
+  right: 0px;
+  color: red;
+  transform: translateY(-10px);
+  background-color: #ffffff;
+  border: 1px solid firebrick;
+  padding: 10px 20px;
+  border-radius: 4px;
+  z-index: 9999;
+  /* Đảm bảo popup luôn nằm trên cùng */
+  display: inline-block;
+  /* Đảm bảo popup bao quanh đoạn text */
+  white-space: nowrap;
+  /* Đảm bảo đoạn text nằm trên một dòng */
+  animation: slideDown 0.5s ease-out;
+  /* Hiệu ứng trượt xuống trong 0.5 giây */
+}
+
+
+.wrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+@keyframes ring {
+  0% {
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+  }
+
+  100% {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}
+
+.header {
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+.nav {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header-title {
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.header-title::after {
+  content: '';
+  border: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  transition: width 0.4s ease, background-color 0.3s ease;
+}
+
+.header-title:hover::after {  
+  border: none !important;
+  width: 100%;
+  background-color: rgb(108, 117, 125);
+}
+
+
+.btn-wave-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(90deg, #008a8f 0%, #00999f 100%);
+  border: none;
+  border-radius: 1000px;
+  box-shadow: 5px 5px 5px rgba(79, 209, 197, .64);
+  transition: all 0.3s ease-in-out 0s;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+}
+
+.btn-wave-wrap::before {
+  content: '';
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 1000px;
+  border: 2px solid #00999f;
+  box-shadow: 0 0 10px #00999f;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all .3s ease-in-out 0s;
+}
+
+.btn-wave-wrap:hover,
+.btn-wave-wrap:focus {
+  transform: translateY(-6px);
+}
+
+.btn-wave-wrap:hover::before,
+.btn-wave-wrap:focus::before {
+  opacity: 1;
+  flex: 1;
+}
+
+.btn-wave-wrap::after {
+  content: '';
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 2px solid #00999f;
+  position: absolute;
+  z-index: -4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ring 1.5s infinite;
+}
+
+.rotate-toggle-button {
+  color: #054142;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease; /* Hiệu ứng chuyển đổi khi xoay */
+}
+
+.rotate-toggle-button.rotated {
+  transform: rotate(180deg); /* Xoay 180 độ khi có lớp 'rotated' */
+}
+
+
+.custom-progress {
+  height: 3%;
+  font-size: medium;
+  background-color: #98bfeb; /* Màu nền trong suốt */
+}
+
+.custom-progress .progress-bar {
+  transition: width 0.6s ease-out; /* Hiệu ứng khi thay đổi width (chiều dài thanh progress) */
+}
+
+.custom-progress .progress-bar-animated {
+  background-color: rgb(1, 65, 201); /* Màu sắc của thanh progress */
+}

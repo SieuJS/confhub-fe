@@ -1,0 +1,46 @@
+.overview-tab {
+    min-width: 220px;
+}
+
+.chart-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Khoảng cách giữa các biểu đồ */
+}
+canvas {
+    width: 100% !important;
+  }
+.chart-container {
+    flex: 1;
+    min-height: 400px;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Media query cho màn hình nhỏ hơn */
+@media (max-width: 768px) {
+    .chart-container {
+        flex: 1 1 100%; /* Để biểu đồ chiếm toàn bộ chiều rộng trên màn hình nhỏ */
+        min-width: 100%; /* Đảm bảo chiều rộng tối thiểu là 100% trên màn hình nhỏ */
+    }
+}
+
+.tooltip-inner{
+    background-color: white;
+    color:darkcyan;
+    word-break: break-all;
+    text-align: left;
+    max-width: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Shadow effect */
+    font-size: large    ;
+  }
+.custom-active-btn{
+    padding-left: 20%;
+    justify-content: start;
+}
+/* Media Query để điều chỉnh bố trí trên màn hình nhỏ */
+@media (max-width: 768px) {
+    .chart-container {
+        min-height: 300px;
+    }
+}

@@ -1,0 +1,19 @@
+.option-done{
+    color: #008031;
+}
+
+.option-crawling{
+    color: #1e90ff;
+}
+
+.option-stopping {
+    color: #ff6f00;
+}
+
+.option-error {
+    color: #fb2a2a;
+}
+
+.option-waiting {
+    color: #40508c
+}

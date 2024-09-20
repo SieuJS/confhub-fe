@@ -1,0 +1,58 @@
+.message-popup{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 80%;
+    border: 2px solid white;
+    font-size: large;
+}
+
+.message-popup.message-popup-success {
+    background-color:rgb(23, 96, 190)
+}
+
+.message-popup.message-popup-failed {
+    background-color: red;
+}
+.message-name{
+    
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    overflow: hidden;
+}
+
+.toggle-conf-custom{
+    color: #054142 !important;
+    font-size: calc(1.375rem + 1.5vw);
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.toggle-conf-custom:hover{
+    color: #054142 !important;
+    font-size: calc(1.375rem + 1.5vw);
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.toggle-conf-custom.btn.show::after{
+    color: #054142 !important;
+}
+
+a.dropdown-item-offcanvas-custom{
+    color: #054142;
+}
+
+
+a.dropdown-item-offcanvas-custom:hover{
+    color: #054142;
+}
+
+.casousel-inner-res-custom .carousel-inner{
+    height: 100% !important;
+}

@@ -1,0 +1,90 @@
+
+/*Sidebar*/
+.my-sidebar {    
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 250px;
+    min-width: 250px;
+    color: #065758;
+    /* Điều chỉnh chiều rộng của sidebar tùy thuộc vào yêu cầu */
+    background-color: #065758;
+    z-index: 1050 !important;
+    transition: width 0.3s ease-in-out;
+}
+
+.my-sidebar-navlink {
+    color: white;
+    padding-left: 10px;
+    margin: 5px 10px;
+    text-wrap: nowrap;
+}
+
+.my-sidebar-navlink:hover {
+    background-color: #054e4f;
+    color: white;
+    border-radius: 8px;
+}
+
+.my-sidebar.collapsed {
+    width: 80px;
+    min-width: 80px;
+    text-align: center;    
+}
+.my-sidebar-content{
+    flex: 1;
+    width: 100%;
+    padding-top: 10px;
+    overflow-x: hidden;
+    padding-bottom: 100px;
+    
+}
+
+
+.toggle-btn {
+    position: absolute;
+    top: 55%;
+    right: -30px;
+    transform: translateY(-50%);
+    background-color: #054142;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s;
+}
+
+.toggle-btn:hover {
+    background-color: #043435;
+    color:lightsteelblue;
+}
+
+
+/* style.css */
+.btn-custom-etl-filter {
+    transition: background-color 0.3s ease-in-out;
+}
+
+.offcanvas-button-custom{
+    background-color: #065758;
+    position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%; 
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000; /* Đảm bảo nút luôn nằm trên các thành phần khác */
+}

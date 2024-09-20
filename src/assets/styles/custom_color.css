@@ -1,0 +1,338 @@
+.bg-beige-light {
+    background-color: #f1fcf8;
+}
+
+button.bg-beige-light:hover {
+    background-color: #f5fcf9;
+    color: #00999f;
+}
+
+button.bg-beige-light:active {
+    background-color: #eaf9f3;
+    color: #00999f;
+}
+
+.bg-beige-normal {
+    background-color: #bcedd8;
+}
+
+button.bg-beige-normal:hover {
+    background-color: #a9d5c2;
+}
+
+button.bg-beige-normal:active {
+    background-color: #96bead;
+}
+
+
+.bg-teal-light {
+    background-color: #e6eeee;
+}
+
+button.bg-teal-light:hover {
+    background-color: #d7e8e8;
+}
+
+button.bg-teal-light:active {
+    background-color: #b2cbcb;
+}
+
+.bg-teal-normal {
+    background-color: #065758;
+}
+
+.bg-teal-normal:hover {
+    background-color: #054e4f;
+}
+
+.bg-teal-normal:active {
+    background-color: #054646;
+}
+
+.bg-teal-dark {
+    background-color: #054142;
+}
+
+.bg-teal-dark:hover {
+    background-color: #043435;
+}
+
+.bg-teal-dark:active {
+    background-color: #032728;
+}
+
+.bg-teal-darker {
+    background-color: #021e1f;
+}
+
+.border-teal-light {
+    border-color: #b2cbcb !important;
+}
+.border-teal-normal {
+    border-color: #065758 !important;
+}
+
+.bg-skyblue-light {
+    background-color: #f2fbfc;
+}
+
+button.bg-skyblue-light:hover {
+    background-color: #ecf8fb;
+}
+
+button.bg-skyblue-light:active {
+    background-color: #d8f1f7;
+}
+.bg-skyblue-normal {
+    background-color: #81d2e4;
+}
+
+button.bg-skyblue-normal:hover {
+    background-color: #74bdcd;
+}
+
+button.bg-skyblue-normal:active {
+    background-color: #67a8b6;
+}
+
+.bg-skyblue-dark {
+    background-color: #619eab;
+}
+
+.bg-skyblue-dark:hover {
+    background-color: #4d7e89;
+}
+
+.bg-skyblue-dark:active {
+    background-color: #3a5e67;
+}
+
+.bg-darkcyan-light {
+    background-color: #e6f5f5;
+}
+
+button.bg-darkcyan-light:hover {
+    background-color: #d9f0f1;
+}
+
+button.bg-darkcyan-light:active {
+    background-color: #b0dfe1;
+}
+
+.bg-darkcyan-normal {
+    background-color: #00999f;
+}
+
+button.bg-darkcyan-normal:hover {
+    background-color: #008a8f;
+}
+
+.bg-darkcyan-normal:active {
+    background-color: #007a7f;
+}
+
+.border-darkcyan-normal{
+    border-color: #00999f !important;
+}
+
+.bg-yellow-light {
+    background-color: #fffdeb;
+}
+
+.bg-yellow-light:hover {
+    background-color: #fffce1;
+}
+
+.bg-yellow-light:active {
+    background-color: #fffac1;
+}
+
+.bg-yellow-dark {
+    background-color: #bfb32a;
+}
+
+.bg-yellow-dark:hover {
+    background-color: #998f22;
+}
+
+.bg-yellow-dark:active {
+    background-color: #736b19;
+}
+
+.bg-yellow-darker {
+    background-color: #595314;
+}
+
+
+
+
+.text-yellow {
+    color: #ffee38;
+}
+
+.text-teal-normal {
+    color: #065758  !important;
+}
+.text-teal-dark{ 
+    color: #054142;
+}
+
+
+.text-skyblue-normal{ 
+    color: #81d2e4;
+}
+
+.text-skyblue-dark{ 
+    color: #619eab;
+}
+.text-darkcyan-normal {
+    color: #00999f;
+}
+.bg-blur {
+    position: relative;
+    background-image: linear-gradient(to bottom, #bcedd8 , #f8fdfb);
+  }
+
+.nav-link.custom-tab-update{
+    color: #054142;
+    transition: color 0.3s ease;
+    border-top: 1px;
+}
+
+.nav-link.custom-tab-update:hover{
+    color: #00999f;
+    border: none;
+    
+}
+.nav-link.custom-tab-update.active{
+    color: #00999f !important;
+    font-weight: 600;
+    border: 2px solid #CBEDE8;
+    border-bottom: none;
+}
+.nav-link.custom-tab-update.active:hover{
+    color: #00999f;
+}
+.nav-item.custom-tab {
+    color:  #619eab !important;
+  }
+  
+  /* Màu tiêu đề tab khi được bấm */
+  .custom-tab:hover,
+ .custom-tab:focus {
+    color: #4d7e89;
+  }
+
+.btn-noti-more:hover,
+.btn-noti-more:active{
+    color: #00999f;
+}
+
+.noti-wrapper{
+    cursor: pointer;
+}
+.noti-wrapper:hover,
+.noti-wrapper:active
+{
+    background-color: #ddf1f6;
+    border: 1px solid #4EB1A4;
+}
+
+.btn-show-advanced:disabled{
+    color: #4EB1A4;
+}
+
+.bg-light-gray{
+    background-color: rgb(205, 210, 211);
+}
+
+
+/* StatusStyles.css */
+
+.status-waiting {
+    color: #40508c; /* Orange */
+    background-color: #fff4e5; /* Light orange background */
+    border: 1px solid #40508c;
+    border-radius: 4px;
+    
+    text-align: center;
+  }
+  
+  .status-done {
+    color: #008031; /* Green */
+    background-color: #e6ffed; /* Light green background */
+    border: 1px solid #008031;
+    border-radius: 4px;
+    
+    text-align: center;
+  }
+  
+  .status-error {
+    color: #fb2a2a; /* Red */
+    background-color: #ffe6e6; /* Light red background */
+    border: 1px solid #fb2a2a;
+    border-radius: 4px;
+    
+    text-align: center;
+  }
+  
+  .status-crawling {
+    color: #1e90ff; /* Dodger blue */
+    background-color: #e6f3ff; /* Light blue background */
+    border: 1px solid #1e90ff;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .status-importing {
+    color: #561eff; /* Dodger blue */
+    background-color: #e6f3ff; /* Light blue background */
+    border: 1px solid #561eff;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
+  .status-stopping {
+    color: #ff4500; /* Orange red */
+    background-color: #ffebd6; /* Light orange-red background */
+    border: 1px solid #ff4500;
+    border-radius: 4px;
+    
+    text-align: center;
+  }
+  
+  .custom-progress-waiting,
+ .custom-progress-crawling,
+ .custom-progress-done,
+ .custom-progress-error,
+ .custom-progress-stopping {
+    background-color: lightgray;
+ }
+
+ .custom-progress-waiting.progress-bar-animated{
+    background-color:#40508c;
+ }
+
+.custom-progress-done.progress-bar-animated {
+    background-color: #008031; /* Màu sắc của thanh progress */
+  }
+
+  
+.custom-progress-crawling.progress-bar-animated {
+    background-color: #1e90ff; /* Màu sắc của thanh progress */
+  }
+
+  
+  
+.custom-progress-error.progress-bar-animated {
+    background-color: #fb2a2a; /* Màu sắc của thanh progress */
+  }
+
+  
+.custom-progress-stopping.progress-bar-animated {
+    background-color: #ff4500; /* Màu sắc của thanh progress */
+  }
+  
+.custom-progress-stopping .progress-bar-animated {
+    background-color: #ff4500; /* Màu sắc của thanh progress */
+  }

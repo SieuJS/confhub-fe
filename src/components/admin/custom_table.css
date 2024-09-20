@@ -1,0 +1,141 @@
+.conference-table-container {
+    overflow-x: auto;
+    display: flex;
+}
+
+.conference-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+.conference-table th,
+.conference-table td {
+    border: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+.conference-table td {}
+
+.fixed-column {
+    position: sticky !important;
+    z-index: 999;
+    width: auto;
+}
+.fixed-column.fixed-right{    
+    right: 0;
+}
+.fixed-column.fixed-left{    
+    left: 0;
+}
+
+.resizer {
+    display: inline-block;
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateX(50%);
+    z-index: 1;
+    touch-action: none;
+    cursor: col-resize;
+}
+
+.table th,
+.table td {
+    padding: 0.5rem 0.2rem;
+    border: 1px solid black;
+    position: relative;
+}
+
+.th,
+.td {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+tr.bg-blue-light td {
+    background-color: #E3F2FD;
+    /* Đặt màu cho các ô trong hàng có lớp bg-blue-light */
+}
+
+tr.bg-white td {
+    background-color: #FFFFFF;
+    /* Đặt màu cho các ô trong hàng có lớp bg-white */
+}
+
+.action-btn {
+    display: inline-block;
+    font-size: 18px;
+    font-family: sans-serif;
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+    transition: all .35s;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+}
+
+.action-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    transition: all .35s;
+    z-index: -1;
+    border-radius: 50%;
+    /* Tạo nền là hình tròn */
+}
+.action-btn.tb-icon-view::before {    
+    background: #007a7f;
+
+}
+.action-btn.tb-icon-delete::before {    
+    background: red;
+
+}
+.action-btn.tb-icon-update::before {
+    background: #FFB13B;
+}
+.action-btn .icon {
+    position: relative;
+    z-index: 2;
+    /* Đưa biểu tượng lên trên */
+}
+
+.action-btn:hover::before {
+    width: 100%;
+}
+
+.action-btn:hover .action-icon {
+    color: white !important;
+    transition: color .35s;
+  }
+
+  .action-btn.tb-icon-delete:hover {    
+    background: red;
+
+}
+
+
+.custom-error-column {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Đảm bảo nội dung vượt quá 3 dòng sẽ hiển thị ba chấm (...) */
+    white-space: pre-wrap !important; /* Cho phép xuống dòng */
+    word-wrap: break-word;
+
+}
