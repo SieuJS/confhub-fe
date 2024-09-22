@@ -65,8 +65,8 @@ const sortByUpcoming = (conferences) => {
 
 const sortByName = (conferences) => {
   return conferences.sort((a, b) => {
-    const labelA = a.information.name.toLowerCase();
-    const labelB = b.information.name.toLowerCase();
+    const labelA = a.information?.name.toLowerCase();
+    const labelB = b.information?.name.toLowerCase();
 
     if (labelA < labelB) {
       return -1;

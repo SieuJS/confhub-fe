@@ -53,7 +53,7 @@ const useNotification = () => {
   useEffect(() => {
     if (id && !socketRef.current) {
       try {
-        socketRef.current = io(`https://conference-searching.onrender.com`, {
+        socketRef.current = io(`${baseURL}`, {
           query: {
             "user-id": id
           },
