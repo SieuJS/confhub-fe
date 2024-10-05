@@ -320,7 +320,12 @@ const appReducer = (state, action) => {
                             progress: action.payload?.job?.progress?.percentage ? action.payload?.job?.progress?.percentage : 0,
                             describe: action.payload.job?.progress?.detail,
                             error: action.payload.job?.error ? action.payload.job?.error : '',
-                            status: action.payload.operationType !== 'insert' ? action.payload.job?.status : 'waiting'
+                            // Chỉ cập nhật trạng thái nếu isImporting là true (đang import)
+                            status: state.isImporting 
+                                ? action.payload.operationType !== 'insert' 
+                                    ? action.payload.job?.status 
+                                    : 'waiting'
+                                : conf.status // Giữ nguyên trạng thái nếu isImporting là false (đang dừng)
                         }
                         : conf
                 ),

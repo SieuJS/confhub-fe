@@ -24,7 +24,7 @@ const DefaultColumnFilter = ({
 const TableRender = ({ data, columns }) => {
   const { t } = useTranslation()
   const { handleGetHeadersExport } = useAdmin()
-  const [pageInput, setPageInput] = useState(null)
+  const [pageInput, setPageInput] = useState('')
 
   const handlePageInput = (e) => {
     if (
@@ -41,7 +41,7 @@ const TableRender = ({ data, columns }) => {
       if (pageNumber >= 0 && pageNumber < pageCount) {
         gotoPage(pageNumber);
       }
-      setPageInput(null);
+      setPageInput('');
     }   
   };
 
@@ -134,15 +134,11 @@ const TableRender = ({ data, columns }) => {
                 {headerGroup.headers.map((column, index) => (
                   <th {...column.getHeaderProps()} key={column.id}
                     className={`bg-primary-light text-color-black text-center 
-                                            ${index === columns.length - 1 && column.id !== 'error' ? 'fixed-column fixed-right' : ''}
-                                            ${index === 0 && 'fixed-column fixed-left'}
-                                            `}>
+                                ${index === columns.length - 1 && column.id !== 'error' ? 'fixed-column fixed-right' : ''} 
+                                ${index === 0 && 'fixed-column fixed-left'}`}>
                     {column.render('Header')}
                     {!column.disableResizing && (
-                      <div
-                        {...column.getResizerProps()}
-                        className="resizer"
-                      />
+                      <div {...column.getResizerProps()} className="resizer" />
                     )}
                   </th>
                 ))}
@@ -151,35 +147,31 @@ const TableRender = ({ data, columns }) => {
           </thead>
           <tbody {...getTableBodyProps()} style={{ minHeight: '200px' }}>
             {
-              page.length > 0 ?
+              page.length > 0 ? 
                 <>
                   {page.map((row, index) => {
                     prepareRow(row);
                     return (
-                      <tr {...row.getRowProps()} key={row.id} className={` ${index % 2 === 0 ? 'bg-blue-light' : 'bg-white'}`}>
-
-                        {row.cells.map((cell, index) => {
-                          return (
-                            <td {...cell.getCellProps()} key={cell.column.id}
-                              className={`py-1 px-2 text-color-black d-flex align-items-center 
-                                                      ${index === columns.length - 1 &&  cell.column.id !== 'error' ? 'fixed-column fixed-right justify-content-center p-0': ''} 
-                                                      ${index === 0 && 'fixed-column fixed-left'} 
-                                                      ${cell.column.id === 'error' ? 'custom-error-column' : ''} 
-                                                      ${(index === 0 ||                                                        
-                                  cell.column.id === 'status' ||
-                                  cell.column.id === 'type' ||
-                                  cell.column.id === 'rank' ||
-                                  cell.column.id === 'acronym' ||
-                                  cell.column.id === 'import' ||
-                                  cell.column.id === 'progress' ||
-                                  cell.column.id === 'duration' ||
-                                  cell.column.id === 'important_dates')
-                                && 'justify-content-center '}`}
-                            >
-                              {cell.render('Cell')}
-                            </td>
-                          );
-                        })}
+                      <tr {...row.getRowProps()} key={row.id}>
+                        {row.cells.map((cell, index) => (
+                          <td {...cell.getCellProps()} key={cell.column.id}
+                            className={`py-1 px-2 text-color-black d-flex align-items-center 
+                                        ${index === columns.length - 1 && cell.column.id !== 'error' ? 'fixed-column fixed-right justify-content-center p-0' : ''} 
+                                        ${index === 0 && 'fixed-column fixed-left'} 
+                                        ${cell.column.id === 'error' ? 'custom-error-column' : ''} 
+                                        ${(index === 0 ||                                                    
+                                          cell.column.id === 'status' || 
+                                          cell.column.id === 'type' || 
+                                          cell.column.id === 'rank' || 
+                                          cell.column.id === 'acronym' || 
+                                          cell.column.id === 'import' || 
+                                          cell.column.id === 'progress' || 
+                                          cell.column.id === 'duration' || 
+                                          cell.column.id === 'important_dates') 
+                                        && 'justify-content-center '}`}>
+                            {cell.render('Cell')}
+                          </td>
+                        ))}
                       </tr>
                     );
                   })}
@@ -187,7 +179,7 @@ const TableRender = ({ data, columns }) => {
                 :
                 (
                   <tr>
-                    <td colSpan={columns.length} style={{ textAlign: 'center', }}>
+                    <td colSpan={columns.length} style={{ textAlign: 'center' }}>
                       No data available
                     </td>
                   </tr>
@@ -205,7 +197,7 @@ const TableRender = ({ data, columns }) => {
         <input
           type="number"
           placeholder={t('page')}
-          value={pageInput}
+          value={pageInput || ''}
           onChange={handleInputChange}
           onKeyDown={handlePageInput}
           max={pageCount}

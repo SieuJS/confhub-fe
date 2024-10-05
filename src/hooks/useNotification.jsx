@@ -53,12 +53,15 @@ const useNotification = () => {
   useEffect(() => {
     if (id && !socketRef.current) {
       try {
-        socketRef.current = io(`${baseURL}`, {
+
+        // Không gian tên
+        const namespace = ''; // Để trống nếu bạn không sử dụng không gian tên
+        socketRef.current = io(`${baseURL}${namespace}`, {
           query: {
-            "user-id": id
+            "user-id": id,
           },
           path: '/socket.io',
-          transports: ["websocket", 'polling']
+          transports: ["websocket", 'polling'],
         });
 
         const socket = socketRef.current;

@@ -1,4 +1,3 @@
-
 import { useAppContext } from '../context/authContext'
 import { baseURL } from './api/baseApi'
 import useToken from './useToken'
@@ -8,6 +7,7 @@ import { useDropzone } from 'react-dropzone';
 import * as XLSX from 'xlsx';
 import usePost from './usePost'
 import forcode from './../data/forcode.json'
+
 const useImport = () => {
     const { state, dispatch } = useAppContext()
     const { postConference } = usePost()
@@ -15,35 +15,41 @@ const useImport = () => {
     const [data, setData] = useState([]);
     const [fileUploaded, setFileUploaded] = useState(false);
     const [selectedHeaders, setSelectedHeaders] = useState([]);
-    
+
     const { token } = useToken()
     const stopRef = useRef(false);
+    const abortController = useRef(new AbortController());
 
     const onDrop = (acceptedFiles) => {
-        setLoading(true)
+        setLoading(true);
         const file = acceptedFiles[0];
+
+        if (!file.type) {
+            console.error('No MIME type found for the file.');
+            return;
+        }
+
         const reader = new FileReader();
         const handleFileLoad = (fileContents) => {
             let jsonData = [];
             if (file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || file.type === "application/vnd.ms-excel") {
-                // Xử lý file Excel
                 const workbook = XLSX.read(fileContents, { type: 'array' });
                 const firstSheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[firstSheetName];
                 jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
             } else if (file.type === "text/csv") {
-                // Xử lý file CSV
                 const csvData = XLSX.utils.sheet_to_json(XLSX.read(fileContents, { type: 'binary' }).Sheets['Sheet1'], { header: 1 });
                 jsonData = csvData;
             } else {
                 console.error('Unsupported file type');
                 return;
             }
+
             const maxColumns = Math.max(...jsonData.map(row => row.length));
             const headers = new Array(maxColumns).fill('');
             setData(jsonData);
-            dispatch({ type: "SET_DATA_UPLOAD", payload: { data: jsonData, headers: headers } })
-            setFileUploaded(true); // Cập nhật trạng thái khi tệp đã được tải lên
+            dispatch({ type: "SET_DATA_UPLOAD", payload: { data: jsonData, headers: headers } });
+            setFileUploaded(true);
         };
 
         reader.onload = (e) => {
@@ -52,7 +58,6 @@ const useImport = () => {
 
         reader.readAsArrayBuffer(file);
     };
-
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
@@ -63,72 +68,59 @@ const useImport = () => {
         ]
     });
 
-
-    const [showImportModal, setShowImportModal] = useState(false)
-    const [showOptionImportModal, setOptionShowImportModal] = useState(false)
+    const [showImportModal, setShowImportModal] = useState(false);
+    const [showOptionImportModal, setOptionShowImportModal] = useState(false);
 
     const handleShowImportModal = (option) => {
-        setShowImportModal(option)
-
-    }
+        setShowImportModal(option);
+    };
 
     const handleIsCrawling = (val) => {
         dispatch({ type: "SET_STOP_IMPORTING", payload: val });
         if (val) {
-            handleBufferList()
+            handleBufferList();
         } else {
-            let updatedConferences = [...state.inProgressLoading]; // Tạo bản sao của dữ liệu ban đầu
-            updatedConferences = updatedConferences.map((conf, index) => {
+            let updatedConferences = [...state.inProgressLoading];
+            updatedConferences = updatedConferences.map((conf) => {
                 if (conf.status !== 'failed' && conf.status !== 'completed') {
                     return {
                         ...conf,
                         import: 'import_success',
                         isStopping: true
-
                     };
                 }
                 return conf;
             });
             dispatch({ type: "SET_IMPORT_LIST", payload: updatedConferences });
-
         }
-    }
-
+    };
 
     const startUploading = async (data) => {
+        abortController.current = new AbortController(); // Reset AbortController
         stopRef.current = false;
-        let updatedConferences = [...data]; // Tạo bản sao của dữ liệu ban đầu
+        let updatedConferences = [...data];
 
         for (let i = 0; i < updatedConferences.length; i++) {
             if (stopRef.current) {
                 break;
             }
-            const job = updatedConferences[i]
-            if (job.status === 'waiting' || job.status === 'stopping')
-
+            const job = updatedConferences[i];
+            if (job.status === 'waiting' || job.status === 'stopping') {
                 try {
-                    const response = await uploadConf(updatedConferences[i].conference);
+                    const response = await uploadConf(updatedConferences[i].conference, abortController.current.signal);
                     if (!response.message?.includes('error')) {
-                        // Cập nhật trạng thái conference hiện tại thành "done" hoặc "error"
                         updatedConferences = updatedConferences.map((conf, index) => {
                             if (index === i) {
                                 return {
                                     ...conf,
                                     import: 'import_success',
-                                    crawlJob: response.crawlJob,
-
+                                    crawlJob: response.crawlJob
                                 };
                             }
                             return conf;
                         });
-
-
                         dispatch({ type: "SET_IMPORT_LIST", payload: updatedConferences });
-
-                    }
-                    else {
-
-                        // Cập nhật trạng thái conference thành "error" nếu có lỗi xảy ra
+                    } else {
                         updatedConferences = updatedConferences.map((conf, index) => {
                             if (index === i) {
                                 return {
@@ -143,33 +135,34 @@ const useImport = () => {
                             }
                             return conf;
                         });
-
                         dispatch({ type: "SET_IMPORT_LIST", payload: updatedConferences });
                     }
-
-
                 } catch (error) {
-                    console.error('Error uploading conference:', error);
-                    updatedConferences = updatedConferences.map((conf, index) => {
-                        if (index === i) {
-                            return {
-                                ...conf,
-                                status: 'error',
-                                import: 'import_failed',
-                                progress: 0,
-                                describe: '',
-                                crawlJob: '',
-                                error: ''
-                            };
-                        }
-                        return conf;
-                    });
-
-                    dispatch({ type: "SET_IMPORT_LIST", payload: updatedConferences });
+                    if (error.name === 'AbortError') {
+                        console.log('Request aborted');
+                    } else {
+                        console.error('Error uploading conference:', error);
+                        updatedConferences = updatedConferences.map((conf, index) => {
+                            if (index === i) {
+                                return {
+                                    ...conf,
+                                    status: 'error',
+                                    import: 'import_failed',
+                                    progress: 0,
+                                    describe: '',
+                                    crawlJob: '',
+                                    error: ''
+                                };
+                            }
+                            return conf;
+                        });
+                        dispatch({ type: "SET_IMPORT_LIST", payload: updatedConferences });
+                    }
                 }
+            }
         }
-
     };
+
 
     const handleBeforeImport = async (data, headers) => {
         const conferencesWithStatus = [];
@@ -239,7 +232,7 @@ const useImport = () => {
         const listFormat = await handleBeforeImport(data, headers)
 
         const { matchedConferences, unmatchedConferences } = await splitConferences(listFormat);
-        
+
         await dispatch({ type: "SET_IMPORT_LIST", payload: unmatchedConferences });
         await dispatch({ type: "SET_EXISTED_CONF", payload: matchedConferences });
         dispatch({ type: "SET_STOP_IMPORTING", payload: true });
@@ -247,10 +240,10 @@ const useImport = () => {
     };
 
 
-    const uploadConf = async (conf) => {
+    const uploadConf = async (conf, signal) => {
         let storedToken = JSON.parse(localStorage.getItem('token'));
-        const tokenHeader = token ? token : storedToken
-        // Giả sử đây là API call
+        const tokenHeader = token ? token : storedToken;
+
         const response = await fetch(`${baseURL}/conference/file/import`, {
             method: 'POST',
             headers: {
@@ -258,39 +251,47 @@ const useImport = () => {
                 'Authorization': `Bearer ${tokenHeader}`
             },
             body: JSON.stringify(conf),
+            signal: signal // Sử dụng signal từ AbortController
         });
 
         return response.json();
-    }
-
+    };
 
 
     const deletePendingJobs = async () => {
-        setLoading(true)
+        setLoading(true);
         try {
-            // let storedToken = JSON.parse(localStorage.getItem('token'));
-            //const tokenHeader = token ? token : storedToken
-            // Gửi yêu cầu lấy danh sách feedback đến API
             const response = await fetch(`${baseURL}/job`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-
-            // Kiểm tra xem kết quả trả về từ API có hợp lệ không
+    
             if (!response.ok) {
                 throw new Error('Failed to fetch feedbacks');
             }
-
+    
             // Lấy dữ liệu từ phản hồi và cập nhật state
             const data = await response.json();
-            setLoading(false)
+            console.log("Deleted pending jobs:", data); // Log thông tin về jobs đã xóa
+    
         } catch (error) {
-            // Nếu có lỗi xảy ra trong quá trình gửi yêu cầu hoặc xử lý dữ liệu, ném ra một lỗi
-            throw new Error(`Error fetching feedbacks: ${error.message}`);
+            console.error("Error deleting pending jobs:", error);
+    
+            // Cho phép tiếp tục import
+            dispatch({ type: "SET_STOP_IMPORTING", payload: true }); 
+    
+            // Hiển thị thông báo lỗi cho người dùng
+            dispatch({ type: "SET_ERROR_MESSAGE", payload: error.message });
+    
+            // Hủy bỏ các request đang chờ xử lý
+            abortController.current.abort(); 
+        } finally {
+            setLoading(false);
         }
-    }
+    };
+    
     const handleBufferList = () => {
         // Wait for 5 seconds before starting to add messages
         setTimeout(() => {
@@ -315,40 +316,49 @@ const useImport = () => {
     };
 
 
-    const handleStopping = () => {
+    const handleStopping = async () => {
         dispatch({ type: "SET_STOP_IMPORTING", payload: false });
-        deletePendingJobs()
-        let updatedConferences = [...state.inProgressLoading]; // Tạo bản sao của dữ liệu ban đầu
+    
+        try {
+            await deletePendingJobs();
+        } catch (error) {
+            console.error("Error deleting pending jobs:", error);
+            // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi cho người dùng
+            // Ví dụ: dispatch({ type: "SET_ERROR_MESSAGE", payload: error.message });
+        } finally {
+            // Đảm bảo abortController.current.abort() được gọi dù có lỗi hay không
+            abortController.current.abort();
+    
+            let updatedConferences = [...state.inProgressLoading];
+            updatedConferences = updatedConferences.map((conf) => {
+                if (conf.status !== 'failed' && conf.status !== 'completed' && conf.status === 'waiting') {
+                    return {
+                        ...conf,
+                        status: 'stopping'
+                    };
+                }
+                return conf;
+            });
+            dispatch({ type: "SET_IMPORT_LIST", payload: updatedConferences });
+        }
+    };
 
-        updatedConferences = updatedConferences.map((conf, index) => {
-            if (conf.status !== 'failed' && conf.status !== 'completed' && conf.status === 'waiting') {
-                return {
-                    ...conf,
-                    status: 'stopping'
-
-                };
-            }
-            return conf;
-        });
-        dispatch({ type: "SET_IMPORT_LIST", payload: updatedConferences });
-    }
     const handleContinue = () => {
-        // Lọc các conference có trong buffer
         dispatch({ type: "SET_STOP_IMPORTING", payload: true });
-        let updatedConferences = [...state.inProgressLoading]; // Tạo bản sao của dữ liệu ban đầu
+
+        let updatedConferences = [...state.inProgressLoading];
         updatedConferences = updatedConferences.map((conf) => {
             if (conf.status === 'stopping') {
                 return {
                     ...conf,
                     status: "waiting"
-
                 };
             }
             return conf;
         });
-        //  dispatch({ type: "SET_IMPORT_LIST", payload: filteredInProgress });
-        startUploading(updatedConferences)
-    }
+
+        startUploading(updatedConferences);
+    };
 
     const convertCodesToNames = (codes) => {
         return codes.split(';').map(code => {
