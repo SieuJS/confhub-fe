@@ -5,7 +5,7 @@ import useAuth from './useAuth';
 import { useAppContext } from '../context/authContext';
 import { getNotifications } from '../actions/notiAction';
 import useToken from './useToken';
-import { baseURL } from './api/baseApi';
+import { baseSocket } from './api/baseApi';
 import useImport from './useImport';
 import useCrawlJob from './useCrawlJob';
 
@@ -56,7 +56,7 @@ const useNotification = () => {
 
         // Không gian tên
         const namespace = ''; // Để trống nếu bạn không sử dụng không gian tên
-        socketRef.current = io(`${baseURL}${namespace}`, {
+        socketRef.current = io(`${baseSocket}${namespace}`, {
           query: {
             "user-id": id,
           },

@@ -160,10 +160,8 @@ export const initialState = {
   isImporting: false,
   isCrawlingConImported: false,
   existedConf: [],
-
   allCrawlJobs: [],
   
-
   searchByKeyworResult: ''
 };
 

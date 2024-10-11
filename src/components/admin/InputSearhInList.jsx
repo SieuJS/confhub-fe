@@ -16,7 +16,6 @@ const InputSearhInList = ({onApplyFilter}) => {
       if (event.key === 'Enter') {
         // Xử lý khi nhấn phím Enter
         onApplyFilter(keyword)
-       
       }
     };
   

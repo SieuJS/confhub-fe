@@ -15,10 +15,8 @@ const useImport = () => {
     const [data, setData] = useState([]);
     const [fileUploaded, setFileUploaded] = useState(false);
     const [selectedHeaders, setSelectedHeaders] = useState([]);
-
     const { token } = useToken()
     const stopRef = useRef(false);
-    const abortController = useRef(new AbortController());
 
     const onDrop = (acceptedFiles) => {
         setLoading(true);
@@ -77,7 +75,9 @@ const useImport = () => {
 
     const handleIsCrawling = (val) => {
         dispatch({ type: "SET_STOP_IMPORTING", payload: val });
+
         if (val) {
+            console.log(val);
             handleBufferList();
         } else {
             let updatedConferences = [...state.inProgressLoading];
@@ -96,7 +96,7 @@ const useImport = () => {
     };
 
     const startUploading = async (data) => {
-        abortController.current = new AbortController(); // Reset AbortController
+        let abortController = new AbortController(); 
         stopRef.current = false;
         let updatedConferences = [...data];
 
@@ -107,7 +107,7 @@ const useImport = () => {
             const job = updatedConferences[i];
             if (job.status === 'waiting' || job.status === 'stopping') {
                 try {
-                    const response = await uploadConf(updatedConferences[i].conference, abortController.current.signal);
+                    const response = await uploadConf(updatedConferences[i].conference);
                     if (!response.message?.includes('error')) {
                         updatedConferences = updatedConferences.map((conf, index) => {
                             if (index === i) {
@@ -240,7 +240,7 @@ const useImport = () => {
     };
 
 
-    const uploadConf = async (conf, signal) => {
+    const uploadConf = async (conf) => {
         let storedToken = JSON.parse(localStorage.getItem('token'));
         const tokenHeader = token ? token : storedToken;
 
@@ -251,7 +251,6 @@ const useImport = () => {
                 'Authorization': `Bearer ${tokenHeader}`
             },
             body: JSON.stringify(conf),
-            signal: signal // Sử dụng signal từ AbortController
         });
 
         return response.json();
@@ -293,6 +292,7 @@ const useImport = () => {
     };
     
     const handleBufferList = () => {
+
         // Wait for 5 seconds before starting to add messages
         setTimeout(() => {
             // Add messages from buffer to main list one by one
@@ -312,11 +312,12 @@ const useImport = () => {
                     }, 1000); // Adjust the delay as needed
                 }
             }, 1000); // Add one message every second
-        }, 6000); // Adjust the initial delay as needed
+        }, 2000); // Adjust the initial delay as needed
     };
 
 
     const handleStopping = async () => {
+        console.log('Stopping import call...');
         dispatch({ type: "SET_STOP_IMPORTING", payload: false });
     
         try {
