@@ -156,9 +156,6 @@ const ImportConferences = () => {
   );
 
 
-  useEffect(()=>{
-
-  }, [])
 
   return (
     <Container className={` pt-5 overflow-hidden ${windowWidth > 768 ? 'm-5' : 'auth-container'}`}>

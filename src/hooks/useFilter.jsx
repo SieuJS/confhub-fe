@@ -209,7 +209,7 @@ const useFilter = () => {
       countryNameLower.includes(normalizedKeyword) ||
       countryNameFullLower.includes(normalizedKeyword)
     );
-   
+
     return (locationContainsCountryCode || locationMatches) && keywordMatches;
   });
 
